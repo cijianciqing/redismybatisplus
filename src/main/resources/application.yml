@@ -1,0 +1,22 @@
+####################################
+#              通用环境            #
+####################################
+# 数据源配置
+spring:
+  # 环境配置
+  profiles:
+    active: dev
+
+  #控制台输出设置
+  output:
+    ansi:
+      enabled: always
+    ####################################
+    #            通用-数据源连接池       #
+    ####################################
+  datasource:
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 15
+      max-lifetime: 1800000
+      pool-name: cjHikariPool

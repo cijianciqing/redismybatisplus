@@ -1,0 +1,22 @@
+
+####################################
+#           mybatis-plus           #
+####################################
+mybatis-plus:
+  configuration:
+#    记录mybatis查询
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#    cache-enabled: true
+  #    caches:
+  # 是否需要配置？？
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: cj.springboot.redismybatis.entity
+####################################
+#          数据源配置               #
+####################################
+spring:
+  datasource:
+    url: jdbc:mysql://172.20.1.117:3306/mybatis_study_01?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: wqn
+    password: wqn641214
+    driver-class-name: com.mysql.cj.jdbc.Driver

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cj.springboot.redismybatis.dao.SysUserDao">
+
+    <cache  type="cj.springboot.redismybatis.redis.CJRedisCache"/>
+
+    <resultMap id="BaseUserResultMap" type="SysUserEntity">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="age" column="age"/>
+    </resultMap>
+    <sql id="BaseUser_Column_List">
+        id, name , age
+    </sql>
+    <update id="updateUser" parameterType="SysUserEntity">
+        update sys_user
+        <set>
+            <if test="name !=null">
+                name = #{name},
+            </if>
+            <if test="age !=null">
+                age = #{age},
+            </if>
+        </set>
+        where id= #{id}
+    </update>
+
+    <select id="findByName" resultMap="BaseUserResultMap">
+        select
+        <include refid="BaseUser_Column_List"/>
+        from sys_user
+        where
+        `name` = #{name,jdbcType=VARCHAR}
+    </select>
+
+
+
+</mapper>

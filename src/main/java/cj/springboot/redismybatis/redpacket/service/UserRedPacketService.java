@@ -1,0 +1,31 @@
+package cj.springboot.redismybatis.redpacket.service;
+
+import cj.springboot.redismybatis.entity.SysRoleEntity;
+import cj.springboot.redismybatis.redpacket.pojo.UserRedPacket;
+import com.baomidou.mybatisplus.extension.service.IService;
+
+public interface UserRedPacketService extends IService<UserRedPacket> {
+	
+	/**
+	 * 保存抢红包信息.
+	 * @param redPacketId 红包编号
+	 * @param userId 抢红包用户编号
+	 * @return 影响记录数.
+	 */
+	public int grapRedPacket(Long redPacketId, Long userId);
+	
+	
+//	public int grapRedPacketForVersion(Long redPacketId, Long userId);
+	
+	/**
+	 * 通过Redis实现抢红包
+	 * @param redPacketId --红包编号
+	 * @param userId -- 用户编号
+	 * @return  
+	 * 0-没有库存，失败 
+	 * 1--成功，且不是最后一个红包
+	 * 2--成功，且是最后一个红包
+	 */
+//	public Long grapRedPacketByRedis(Long redPacketId, Long userId);
+	
+}
