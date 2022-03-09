@@ -31,6 +31,6 @@ public interface RedPacketDao extends BaseMapper<RedPacket> {
 	public RedPacket getRedPacketForUpdate(Long id);
 //
 //
-//	public int decreaseRedPacketForVersion(@Param("id") Long id, @Param("version") Integer version);
+	public int decreaseRedPacketForVersion(@Param("id") Long id, @Param("version") Integer version);
 
 }

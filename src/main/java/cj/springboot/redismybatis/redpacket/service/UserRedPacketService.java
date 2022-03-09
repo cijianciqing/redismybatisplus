@@ -7,24 +7,24 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface UserRedPacketService extends IService<UserRedPacket> {
 	
 	/**
-	 * ±£´æÇÀºì°üÐÅÏ¢.
-	 * @param redPacketId ºì°ü±àºÅ
-	 * @param userId ÇÀºì°üÓÃ»§±àºÅ
-	 * @return Ó°Ïì¼ÇÂ¼Êý.
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢.
+	 * @param redPacketId ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	 * @param userId ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½
+	 * @return Ó°ï¿½ï¿½ï¿½Â¼ï¿½ï¿½.
 	 */
 	public int grapRedPacket(Long redPacketId, Long userId);
 	
 	
-//	public int grapRedPacketForVersion(Long redPacketId, Long userId);
+	public int grapRedPacketForVersion(Long redPacketId, Long userId);
 	
 	/**
-	 * Í¨¹ýRedisÊµÏÖÇÀºì°ü
-	 * @param redPacketId --ºì°ü±àºÅ
-	 * @param userId -- ÓÃ»§±àºÅ
+	 * Í¨ï¿½ï¿½RedisÊµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	 * @param redPacketId --ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	 * @param userId -- ï¿½Ã»ï¿½ï¿½ï¿½ï¿½
 	 * @return  
-	 * 0-Ã»ÓÐ¿â´æ£¬Ê§°Ü 
-	 * 1--³É¹¦£¬ÇÒ²»ÊÇ×îºóÒ»¸öºì°ü
-	 * 2--³É¹¦£¬ÇÒÊÇ×îºóÒ»¸öºì°ü
+	 * 0-Ã»ï¿½Ð¿ï¿½æ£¬Ê§ï¿½ï¿½ 
+	 * 1--ï¿½É¹ï¿½ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½
+	 * 2--ï¿½É¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½
 	 */
 //	public Long grapRedPacketByRedis(Long redPacketId, Long userId);
 	

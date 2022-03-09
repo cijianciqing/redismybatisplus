@@ -31,18 +31,18 @@ public class UserRedPacketController {
 	}
 
 	
-	 //�ֹ�������ʹ��ʱ�޸�javascript������·��
-//	@RequestMapping(value = "/grapRedPacketForVersion")
-//	@ResponseBody
-//	public Map<String, Object> grapRedPacketForVersion(Long redPacketId, Long userId) {
-//		// �����
-//		int result = userRedPacketService.grapRedPacketForVersion(redPacketId, userId);
-//		Map<String, Object> retMap = new HashMap<String, Object>();
-//		boolean flag = result > 0;
-//		retMap.put("success", flag);
-//		retMap.put("message", flag ? "������ɹ�" : "�����ʧ��");
-//		return retMap;
-//	}
+	 //测试乐观锁
+	@RequestMapping(value = "/grapRedPacketForVersion")
+	@ResponseBody
+	public Map<String, Object> grapRedPacketForVersion(Long redPacketId, Long userId) {
+
+		int result = userRedPacketService.grapRedPacketForVersion(redPacketId, userId);
+		Map<String, Object> retMap = new HashMap<String, Object>();
+		boolean flag = result > 0;
+		retMap.put("success", flag);
+		retMap.put("message", flag ? "success" : "fail");
+		return retMap;
+	}
 	
 //	@RequestMapping(value = "/grapRedPacketByRedis")
 //	@ResponseBody
