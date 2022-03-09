@@ -22,11 +22,11 @@ public class CJCodeGenerator {
     private static final String JDBC_PASSOWRD = "wqn641214";
 
     // 包名和模块名
-    private static final String PACKAGE_NAME = "cj.springboot.redismybatis";
+    private static final String PACKAGE_NAME = "cj.springboot.redismybatis.redpacket2";
     private static final String MODULE_NAME = "";
 
     // 表名，多个表使用英文逗号分割
-    private static final String[] TBL_NAMES = { "sys_user", "sys_role" };
+    private static final String[] TBL_NAMES = { "t_red_packet", "t_user_red_packet" };
 
     // 表名的前缀，从表生成代码时会去掉前缀
     private static final String TABLE_PREFIX = "";

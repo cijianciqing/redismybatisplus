@@ -17,32 +17,30 @@ public class UserRedPacketController {
 	@Autowired
 	private UserRedPacketService userRedPacketService = null;
 
-	/*
-	* »ñÈ¡ºì°ü
-	* */
+
 	@RequestMapping(value = "/grapRedPacket")
 	@ResponseBody
 	public Map<String, Object> grapRedPacket(Long redPacketId, Long userId) {
-		// ÇÀºì°ü
+
 		int result = userRedPacketService.grapRedPacket(redPacketId, userId);
 		Map<String, Object> retMap = new HashMap<String, Object>();
 		boolean flag = result > 0;
 		retMap.put("success", flag);
-		retMap.put("message", flag ? "ÇÀºì°ü³É¹¦" : "ÇÀºì°üÊ§°Ü");
+		retMap.put("message", flag ? "æˆåŠŸ" : "å¤±è´¥");
 		return retMap;
 	}
 
 	
-	 //ÀÖ¹ÛËøÇëÇó£¬Ê¹ÓÃÊ±ĞŞ¸ÄjavascriptµÄÇëÇóÂ·¾¶
+	 //ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½Ê±ï¿½Ş¸ï¿½javascriptï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½
 //	@RequestMapping(value = "/grapRedPacketForVersion")
 //	@ResponseBody
 //	public Map<String, Object> grapRedPacketForVersion(Long redPacketId, Long userId) {
-//		// ÇÀºì°ü
+//		// ï¿½ï¿½ï¿½ï¿½ï¿½
 //		int result = userRedPacketService.grapRedPacketForVersion(redPacketId, userId);
 //		Map<String, Object> retMap = new HashMap<String, Object>();
 //		boolean flag = result > 0;
 //		retMap.put("success", flag);
-//		retMap.put("message", flag ? "ÇÀºì°ü³É¹¦" : "ÇÀºì°üÊ§°Ü");
+//		retMap.put("message", flag ? "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½" : "ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½");
 //		return retMap;
 //	}
 	
@@ -53,7 +51,7 @@ public class UserRedPacketController {
 //		Long result = userRedPacketService.grapRedPacketByRedis(redPacketId, userId);
 //		boolean flag = result > 0;
 //		resultMap.put("result", flag);
-//		resultMap.put("message", flag ? "ÇÀºì°ü³É¹¦": "ÇÀºì°üÊ§°Ü");
+//		resultMap.put("message", flag ? "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½": "ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½");
 //		return resultMap;
 //	}
 }

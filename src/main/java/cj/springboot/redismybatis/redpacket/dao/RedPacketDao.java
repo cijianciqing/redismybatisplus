@@ -11,24 +11,24 @@ import org.springframework.stereotype.Repository;
 public interface RedPacketDao extends BaseMapper<RedPacket> {
 	
 	/**
-	 * »ñÈ¡ºì°üĞÅÏ¢.
-	 * @param id --ºì°üid
-	 * @return ºì°ü¾ßÌåĞÅÏ¢
+	 * ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢.
+	 * @param id --ï¿½ï¿½ï¿½id
+	 * @return ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	 */
 	public RedPacket getRedPacket(Long id);
 	/**
-	 * ¿Û¼õÇÀºì°üÊı.
-	 * @param id -- ºì°üid
-	 * @return ¸üĞÂ¼ÇÂ¼ÌõÊı
+	 * ï¿½Û¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
+	 * @param id -- ï¿½ï¿½ï¿½id
+	 * @return ï¿½ï¿½ï¿½Â¼ï¿½Â¼ï¿½ï¿½ï¿½ï¿½
 	 */
 	public int decreaseRedPacket(Long id);
 	
 	/***
-	 * Ê¹ÓÃfor updateÓï¾ä¼ÓËø.
-	 * @param id ¡ª¡ªºì°üid
-	 * @return ºì°üĞÅÏ¢
+	 * Ê¹ï¿½ï¿½for update æ‚²è§‚é”
+	 * @param id ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½id
+	 * @return ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	 */
-//	public RedPacket getRedPacketForUpdate(Long id);
+	public RedPacket getRedPacketForUpdate(Long id);
 //
 //
 //	public int decreaseRedPacketForVersion(@Param("id") Long id, @Param("version") Integer version);

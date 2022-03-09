@@ -27,131 +27,131 @@ public class UserRedPacketServiceImpl extends ServiceImpl<UserRedPacketDao, User
 	@Autowired
 	private RedPacketDao redPacketDao = null;
 
-	// Ê§°Ü
+	// Ê§ï¿½ï¿½
 	private static final int FAILED = 0;
 
 	@Override
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public int grapRedPacket(Long redPacketId, Long userId) {
-		// »ñÈ¡ºì°üÐÅÏ¢
-		 RedPacket redPacket = redPacketDao.getRedPacket(redPacketId);
-		// ±¯¹ÛËø
-//		RedPacket redPacket = redPacketDao.getRedPacketForUpdate(redPacketId);
-		// µ±Ç°Ð¡ºì°ü¿â´æ´óÓÚ0
+		// ä¸ä½¿ç”¨é”
+//		 RedPacket redPacket = redPacketDao.getRedPacket(redPacketId);
+		// ä½¿ç”¨æ‚²è§‚é”
+		RedPacket redPacket = redPacketDao.getRedPacketForUpdate(redPacketId);
+		// ï¿½ï¿½Ç°Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0
 		if (redPacket.getStock() > 0) {
 			redPacketDao.decreaseRedPacket(redPacketId);
-			// Éú³ÉÇÀºì°üÐÅÏ¢
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 			UserRedPacket userRedPacket = new UserRedPacket();
 			userRedPacket.setRedPacketId(redPacketId);
 			userRedPacket.setUserId(userId);
 			userRedPacket.setAmount(redPacket.getUnitAmount());
-			userRedPacket.setNote("ÇÀºì°ü " + redPacketId);
-			// ²åÈëÇÀºì°üÐÅÏ¢
+			userRedPacket.setNote("æŠ¢çº¢åŒ…" + redPacketId);
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 			int result = userRedPacketDao.grapRedPacket(userRedPacket);
 			return result;
 		}
-		// Ê§°Ü·µ»Ø
+		// Ê§ï¿½Ü·ï¿½ï¿½ï¿½
 		return FAILED;
 	}
 
-	// ÀÖ¹ÛËø£¬ÎÞÖØÈë
+	// ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //	@Override
 //	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 //	public int grapRedPacketForVersion(Long redPacketId, Long userId) {
-//		// »ñÈ¡ºì°üÐÅÏ¢,×¢ÒâversionÖµ
+//		// ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢,×¢ï¿½ï¿½versionÖµ
 //		RedPacket redPacket = redPacketDao.getRedPacket(redPacketId);
-//		// µ±Ç°Ð¡ºì°ü¿â´æ´óÓÚ0
+//		// ï¿½ï¿½Ç°Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0
 //		if (redPacket.getStock() > 0) {
-//			// ÔÙ´Î´«ÈëÏß³Ì±£´æµÄversion¾ÉÖµ¸øSQLÅÐ¶Ï£¬ÊÇ·ñÓÐÆäËûÏß³ÌÐÞ¸Ä¹ýÊý¾Ý
+//			// ï¿½Ù´Î´ï¿½ï¿½ï¿½ï¿½ß³Ì±ï¿½ï¿½ï¿½ï¿½versionï¿½ï¿½Öµï¿½ï¿½SQLï¿½Ð¶Ï£ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß³ï¿½ï¿½Þ¸Ä¹ï¿½ï¿½ï¿½ï¿½ï¿½
 //			int update = redPacketDao.decreaseRedPacketForVersion(redPacketId, redPacket.getVersion());
-//			// Èç¹ûÃ»ÓÐÊý¾Ý¸üÐÂ£¬ÔòËµÃ÷ÆäËûÏß³ÌÒÑ¾­ÐÞ¸Ä¹ýÊý¾Ý£¬±¾´ÎÇÀºì°üÊ§°Ü
+//			// ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½Ý¸ï¿½ï¿½Â£ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß³ï¿½ï¿½Ñ¾ï¿½ï¿½Þ¸Ä¹ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½
 //			if (update == 0) {
 //				return FAILED;
 //			}
-//			// Éú³ÉÇÀºì°üÐÅÏ¢
+//			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 //			UserRedPacket userRedPacket = new UserRedPacket();
 //			userRedPacket.setRedPacketId(redPacketId);
 //			userRedPacket.setUserId(userId);
 //			userRedPacket.setAmount(redPacket.getUnitAmount());
-//			userRedPacket.setNote("ÇÀºì°ü " + redPacketId);
-//			// ²åÈëÇÀºì°üÐÅÏ¢
+//			userRedPacket.setNote("ï¿½ï¿½ï¿½ï¿½ï¿½ " + redPacketId);
+//			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 //			int result = userRedPacketDao.grapRedPacket(userRedPacket);
 //			return result;
 //		}
-//		// Ê§°Ü·µ»Ø
+//		// Ê§ï¿½Ü·ï¿½ï¿½ï¿½
 //		return FAILED;
 //	}
 
-	// ÀÖ¹ÛËø£¬°´Ê±¼ä´ÁÖØÈë
+	// ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	// @Override
 	// @Transactional(isolation = Isolation.READ_COMMITTED, propagation =
 	// Propagation.REQUIRED)
 	// public int grapRedPacketForVersion(Long redPacketId, Long userId) {
-	// // ¼ÇÂ¼¿ªÊ¼Ê±¼ä
+	// // ï¿½ï¿½Â¼ï¿½ï¿½Ê¼Ê±ï¿½ï¿½
 	// long start = System.currentTimeMillis();
-	// // ÎÞÏÞÑ­»·£¬µÈ´ý³É¹¦»òÕßÊ±¼äÂú100ºÁÃëÍË³ö
+	// // ï¿½ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½È´ï¿½ï¿½É¹ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½100ï¿½ï¿½ï¿½ï¿½ï¿½Ë³ï¿½
 	// while (true) {
-	// // »ñÈ¡Ñ­»·µ±Ç°Ê±¼ä
+	// // ï¿½ï¿½È¡Ñ­ï¿½ï¿½ï¿½ï¿½Ç°Ê±ï¿½ï¿½
 	// long end = System.currentTimeMillis();
-	// // µ±Ç°Ê±¼äÒÑ¾­³¬¹ý100ºÁÃë£¬·µ»ØÊ§°Ü
+	// // ï¿½ï¿½Ç°Ê±ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½100ï¿½ï¿½ï¿½ë£¬ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½
 	// if (end - start > 100) {
 	// return FAILED;
 	// }
-	// // »ñÈ¡ºì°üÐÅÏ¢,×¢ÒâversionÖµ
+	// // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢,×¢ï¿½ï¿½versionÖµ
 	// RedPacket redPacket = redPacketDao.getRedPacket(redPacketId);
-	// // µ±Ç°Ð¡ºì°ü¿â´æ´óÓÚ0
+	// // ï¿½ï¿½Ç°Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0
 	// if (redPacket.getStock() > 0) {
-	// // ÔÙ´Î´«ÈëÏß³Ì±£´æµÄversion¾ÉÖµ¸øSQLÅÐ¶Ï£¬ÊÇ·ñÓÐÆäËûÏß³ÌÐÞ¸Ä¹ýÊý¾Ý
+	// // ï¿½Ù´Î´ï¿½ï¿½ï¿½ï¿½ß³Ì±ï¿½ï¿½ï¿½ï¿½versionï¿½ï¿½Öµï¿½ï¿½SQLï¿½Ð¶Ï£ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß³ï¿½ï¿½Þ¸Ä¹ï¿½ï¿½ï¿½ï¿½ï¿½
 	// int update = redPacketDao.decreaseRedPacketForVersion(redPacketId,
 	// redPacket.getVersion());
-	// // Èç¹ûÃ»ÓÐÊý¾Ý¸üÐÂ£¬ÔòËµÃ÷ÆäËûÏß³ÌÒÑ¾­ÐÞ¸Ä¹ýÊý¾Ý£¬ÔòÖØÐÂÇÀ¶á
+	// // ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½Ý¸ï¿½ï¿½Â£ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß³ï¿½ï¿½Ñ¾ï¿½ï¿½Þ¸Ä¹ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	// if (update == 0) {
 	// continue;
 	// }
-	// // Éú³ÉÇÀºì°üÐÅÏ¢
+	// // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	// UserRedPacket userRedPacket = new UserRedPacket();
 	// userRedPacket.setRedPacketId(redPacketId);
 	// userRedPacket.setUserId(userId);
 	// userRedPacket.setAmount(redPacket.getUnitAmount());
-	// userRedPacket.setNote("ÇÀºì°ü " + redPacketId);
-	// // ²åÈëÇÀºì°üÐÅÏ¢
+	// userRedPacket.setNote("ï¿½ï¿½ï¿½ï¿½ï¿½ " + redPacketId);
+	// // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	// int result = userRedPacketDao.grapRedPacket(userRedPacket);
 	// return result;
 	// } else {
-	// // Ò»µ©Ã»ÓÐ¿â´æ£¬ÔòÂíÉÏ·µ»Ø
+	// // Ò»ï¿½ï¿½Ã»ï¿½Ð¿ï¿½æ£¬ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½
 	// return FAILED;
 	// }
 	// }
 	// }
 
-	// ÀÖ¹ÛËø£¬°´´ÎÊýÖØÈë
+	// ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	// @Override
 	// @Transactional(isolation = Isolation.READ_COMMITTED, propagation =
 	// Propagation.REQUIRED)
 	// public int grapRedPacketForVersion(Long redPacketId, Long userId) {
 	// for (int i = 0; i < 3; i++) {
-	// // »ñÈ¡ºì°üÐÅÏ¢£¬×¢ÒâversionÖµ
+	// // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½×¢ï¿½ï¿½versionÖµ
 	// RedPacket redPacket = redPacketDao.getRedPacket(redPacketId);
-	// // µ±Ç°Ð¡ºì°ü¿â´æ´óÓÚ0
+	// // ï¿½ï¿½Ç°Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0
 	// if (redPacket.getStock() > 0) {
-	// // ÔÙ´Î´«ÈëÏß³Ì±£´æµÄversion¾ÉÖµ¸øSQLÅÐ¶Ï£¬ÊÇ·ñÓÐÆäËûÏß³ÌÐÞ¸Ä¹ýÊý¾Ý
+	// // ï¿½Ù´Î´ï¿½ï¿½ï¿½ï¿½ß³Ì±ï¿½ï¿½ï¿½ï¿½versionï¿½ï¿½Öµï¿½ï¿½SQLï¿½Ð¶Ï£ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß³ï¿½ï¿½Þ¸Ä¹ï¿½ï¿½ï¿½ï¿½ï¿½
 	// int update = redPacketDao.decreaseRedPacketForVersion(redPacketId,
 	// redPacket.getVersion());
-	// // Èç¹ûÃ»ÓÐÊý¾Ý¸üÐÂ£¬ÔòËµÃ÷ÆäËûÏß³ÌÒÑ¾­ÐÞ¸Ä¹ýÊý¾Ý£¬ÔòÖØÐÂÇÀ¶á
+	// // ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½Ý¸ï¿½ï¿½Â£ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß³ï¿½ï¿½Ñ¾ï¿½ï¿½Þ¸Ä¹ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	// if (update == 0) {
 	// continue;
 	// }
-	// // Éú³ÉÇÀºì°üÐÅÏ¢
+	// // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	// UserRedPacket userRedPacket = new UserRedPacket();
 	// userRedPacket.setRedPacketId(redPacketId);
 	// userRedPacket.setUserId(userId);
 	// userRedPacket.setAmount(redPacket.getUnitAmount());
-	// userRedPacket.setNote("ÇÀºì°ü " + redPacketId);
-	// // ²åÈëÇÀºì°üÐÅÏ¢
+	// userRedPacket.setNote("ï¿½ï¿½ï¿½ï¿½ï¿½ " + redPacketId);
+	// // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	// int result = userRedPacketDao.grapRedPacket(userRedPacket);
 	// return result;
 	// } else {
-	// // Ò»µ©Ã»ÓÐ¿â´æ£¬ÔòÂíÉÏ·µ»Ø
+	// // Ò»ï¿½ï¿½Ã»ï¿½Ð¿ï¿½æ£¬ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½
 	// return FAILED;
 	// }
 	// }
@@ -164,7 +164,7 @@ public class UserRedPacketServiceImpl extends ServiceImpl<UserRedPacketDao, User
 	@Autowired
 	private RedisRedPacketService redisRedPacketService = null;
 
-	// Lua½Å±¾
+	// Luaï¿½Å±ï¿½
 	String script = "local listKey = 'red_packet_list_'..KEYS[1] \n" 
 	+ "local redPacket = 'red_packet_'..KEYS[1] \n"
 			+ "local stock = tonumber(redis.call('hget', redPacket, 'stock')) \n" 
@@ -175,35 +175,35 @@ public class UserRedPacketServiceImpl extends ServiceImpl<UserRedPacketDao, User
 			+ "if stock == 0 then return 2 end \n" 
 			+ "return 1 \n";
 
-	// ÔÚ»º´æLUA½Å±¾ºó£¬Ê¹ÓÃ¸Ã±äÁ¿±£´æRedis·µ»ØµÄ32Î»µÄSHA1±àÂë£¬Ê¹ÓÃËüÈ¥Ö´ÐÐ»º´æµÄLUA½Å±¾[¼ÓÈëÕâ¾ä»°]
+	// ï¿½Ú»ï¿½ï¿½ï¿½LUAï¿½Å±ï¿½ï¿½ï¿½Ê¹ï¿½Ã¸Ã±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Redisï¿½ï¿½ï¿½Øµï¿½32Î»ï¿½ï¿½SHA1ï¿½ï¿½ï¿½ë£¬Ê¹ï¿½ï¿½ï¿½ï¿½È¥Ö´ï¿½Ð»ï¿½ï¿½ï¿½ï¿½LUAï¿½Å±ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ä»°]
 	String sha1 = null;
 
 	@Override
 	public Long grapRedPacketByRedis(Long redPacketId, Long userId) {
-		// µ±Ç°ÇÀºì°üÓÃ»§ºÍÈÕÆÚÐÅÏ¢
+		// ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 		String args = userId + "-" + System.currentTimeMillis();
 		Long result = null;
-		// »ñÈ¡µ×²ãRedis²Ù×÷¶ÔÏó
+		// ï¿½ï¿½È¡ï¿½×²ï¿½Redisï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		Jedis jedis = (Jedis) redisTemplate.getConnectionFactory().getConnection().getNativeConnection();
 		try {
-			// Èç¹û½Å±¾Ã»ÓÐ¼ÓÔØ¹ý£¬ÄÇÃ´½øÐÐ¼ÓÔØ£¬ÕâÑù¾Í»á·µ»ØÒ»¸ösha1±àÂë
+			// ï¿½ï¿½ï¿½ï¿½Å±ï¿½Ã»ï¿½Ð¼ï¿½ï¿½Ø¹ï¿½ï¿½ï¿½ï¿½ï¿½Ã´ï¿½ï¿½ï¿½Ð¼ï¿½ï¿½Ø£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í»á·µï¿½ï¿½Ò»ï¿½ï¿½sha1ï¿½ï¿½ï¿½ï¿½
 			if (sha1 == null) {
 				sha1 = jedis.scriptLoad(script);
 			}
-			// Ö´ÐÐ½Å±¾£¬·µ»Ø½á¹û
+			// Ö´ï¿½Ð½Å±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø½ï¿½ï¿½
 			Object res = jedis.evalsha(sha1, 1, redPacketId + "", args);
 			result = (Long) res;
-			// ·µ»Ø2Ê±Îª×îºóÒ»¸öºì°ü£¬´ËÊ±½«ÇÀºì°üÐÅÏ¢Í¨¹ýÒì²½±£´æµ½Êý¾Ý¿âÖÐ
+			// ï¿½ï¿½ï¿½ï¿½2Ê±Îªï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢Í¨ï¿½ï¿½ï¿½ì²½ï¿½ï¿½ï¿½æµ½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½
 			if (result == 2) {
-				// »ñÈ¡µ¥¸öÐ¡ºì°ü½ð¶î
+				// ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				String unitAmountStr = jedis.hget("red_packet_" + redPacketId, "unit_amount");
-				// ´¥·¢±£´æÊý¾Ý¿â²Ù×÷
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½
 				Double unitAmount = Double.parseDouble(unitAmountStr);
 				System.err.println("thread_name = " + Thread.currentThread().getName());
 				redisRedPacketService.saveUserRedPacketByRedis(redPacketId, unitAmount);
 			}
 		} finally {
-			// È·±£jedisË³Àû¹Ø±Õ
+			// È·ï¿½ï¿½jedisË³ï¿½ï¿½ï¿½Ø±ï¿½
 			if (jedis != null && jedis.isConnected()) {
 				jedis.close();
 			}
