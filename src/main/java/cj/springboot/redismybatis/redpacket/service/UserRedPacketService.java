@@ -26,6 +26,6 @@ public interface UserRedPacketService extends IService<UserRedPacket> {
 	 * 1--�ɹ����Ҳ������һ�����
 	 * 2--�ɹ����������һ�����
 	 */
-//	public Long grapRedPacketByRedis(Long redPacketId, Long userId);
+	public Long grapRedPacketByRedis(Long redPacketId, Long userId);
 	
 }

@@ -23,29 +23,30 @@ import java.util.List;
 public class RedisRedPacketServiceImpl implements RedisRedPacketService {
 
 	private static final String PREFIX = "red_packet_list_";
-	// Ã¿´ÎÈ¡³ö1000Ìõ£¬±ÜÃâÒ»´ÎÈ¡³öÏûºÄÌ«¶àÄÚ´æ
+
 	private static final int TIME_SIZE = 1000;
 
 	@Autowired
 	private RedisTemplate redisTemplate = null; // RedisTemplate
 
 	@Autowired
-	private DataSource dataSource = null; // Êý¾ÝÔ´
+	private DataSource dataSource = null; // ï¿½ï¿½ï¿½ï¿½Ô´
 
 	@Override
-	// ¿ªÆôÐÂÏß³ÌÔËÐÐ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß³ï¿½ï¿½ï¿½ï¿½ï¿½
 	@Async
 	public void saveUserRedPacketByRedis(Long redPacketId, Double unitAmount) {
-		System.err.println("¿ªÊ¼±£´æÊý¾Ý");
+		System.err.println("ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		Long start = System.currentTimeMillis();
-		// »ñÈ¡ÁÐ±í²Ù×÷¶ÔÏó
+
+
 		BoundListOperations ops = redisTemplate.boundListOps(PREFIX + redPacketId);
 		Long size = ops.size();
 		Long times = size % TIME_SIZE == 0 ? size / TIME_SIZE : size / TIME_SIZE + 1;
 		int count = 0;
 		List<UserRedPacket> userRedPacketList = new ArrayList<UserRedPacket>(TIME_SIZE);
 		for (int i = 0; i < times; i++) {
-			// »ñÈ¡ÖÁ¶àTIME_SIZE¸öÇÀºì°üÐÅÏ¢
+
 			List userIdList = null;
 			if (i == 0) {
 				userIdList = ops.range(i * TIME_SIZE, (i + 1) * TIME_SIZE);
@@ -53,7 +54,8 @@ public class RedisRedPacketServiceImpl implements RedisRedPacketService {
 				userIdList = ops.range(i * TIME_SIZE + 1, (i + 1) * TIME_SIZE);
 			}
 			userRedPacketList.clear();
-			// ±£´æºì°üÐÅÏ¢
+
+
 			for (int j = 0; j < userIdList.size(); j++) {
 				String args = userIdList.get(j).toString();
 				String[] arr = args.split("-");
@@ -61,30 +63,30 @@ public class RedisRedPacketServiceImpl implements RedisRedPacketService {
 				String timeStr = arr[1];
 				Long userId = Long.parseLong(userIdStr);
 				Long time = Long.parseLong(timeStr);
-				// Éú³ÉÇÀºì°üÐÅÏ¢
+
 				UserRedPacket userRedPacket = new UserRedPacket();
 				userRedPacket.setRedPacketId(redPacketId);
 				userRedPacket.setUserId(userId);
 				userRedPacket.setAmount(unitAmount);
 				userRedPacket.setGrabTime(new Timestamp(time));
-				userRedPacket.setNote("ÇÀºì°ü " + redPacketId);
+				userRedPacket.setNote("ï¿½ï¿½ï¿½ï¿½ï¿½ " + redPacketId);
 				userRedPacketList.add(userRedPacket);
 			}
-			// ²åÈëÇÀºì°üÐÅÏ¢
+
 			count += executeBatch(userRedPacketList);
 		}
-		// É¾³ýRedisÁÐ±í
+
 		redisTemplate.delete(PREFIX + redPacketId);
 		Long end = System.currentTimeMillis();
-		System.err.println("±£´æÊý¾Ý½áÊø£¬ºÄÊ±" + (end - start) + "ºÁÃë£¬¹²" + count + "Ìõ¼ÇÂ¼±»±£´æ¡£");
+		System.err.println("æŒç»­æ—¶é—´" + (end - start) + "æ¬¡æ•°" + count + "æ¡£");
 	}
 
 	/**
-	 * Ê¹ÓÃJDBCÅúÁ¿´¦ÀíRedis»º´æÊý¾Ý.
+	 * Ê¹ï¿½ï¿½JDBCï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Redisï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 	 * 
 	 * @param userRedPacketList
-	 *            -- ÇÀºì°üÁÐ±í
-	 * @return ÇÀºì°ü²åÈëÊýÁ¿.
+	 *            -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½
+	 * @return ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.
 	 */
 	private int executeBatch(List<UserRedPacket> userRedPacketList) {
 		Connection conn = null;
@@ -104,13 +106,13 @@ public class RedisRedPacketServiceImpl implements RedisRedPacketService {
 				stmt.addBatch(sql1);
 				stmt.addBatch(sql2);
 			}
-			// Ö´ÐÐÅúÁ¿
+			//
 			count = stmt.executeBatch();
-			// Ìá½»ÊÂÎñ
+			//
 			conn.commit();
 		} catch (SQLException e) {
-			/********* ´íÎó´¦ÀíÂß¼­ ********/
-			throw new RuntimeException("ÇÀºì°üÅúÁ¿Ö´ÐÐ³ÌÐò´íÎó");
+			/********* ********/
+			throw new RuntimeException("cjå¼‚å¸¸");
 		} finally {
 			try {
 				if (conn != null && !conn.isClosed()) {
@@ -120,7 +122,7 @@ public class RedisRedPacketServiceImpl implements RedisRedPacketService {
 				e.printStackTrace();
 			}
 		}
-		// ·µ»Ø²åÈëÇÀºì°üÊý¾Ý¼ÇÂ¼
+		// ï¿½ï¿½ï¿½Ø²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¼ï¿½Â¼
 		return count.length / 2;
 	}
 }

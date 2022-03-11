@@ -4,6 +4,7 @@ import cj.springboot.redismybatis.entity.SysUserEntity;
 import cj.springboot.redismybatis.dao.SysUserDao;
 import cj.springboot.redismybatis.service.SysUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**

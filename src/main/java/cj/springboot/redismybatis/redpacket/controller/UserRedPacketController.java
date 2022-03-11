@@ -3,6 +3,7 @@ package cj.springboot.redismybatis.redpacket.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import cj.springboot.redismybatis.lua.CJRedisLuaTest;
 import cj.springboot.redismybatis.redpacket.service.UserRedPacketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -44,14 +45,29 @@ public class UserRedPacketController {
 		return retMap;
 	}
 	
-//	@RequestMapping(value = "/grapRedPacketByRedis")
-//	@ResponseBody
-//	public Map<String, Object> grapRedPacketByRedis(Long redPacketId, Long userId) {
-//		Map<String, Object> resultMap = new HashMap<String, Object>();
-//		Long result = userRedPacketService.grapRedPacketByRedis(redPacketId, userId);
-//		boolean flag = result > 0;
-//		resultMap.put("result", flag);
-//		resultMap.put("message", flag ? "������ɹ�": "�����ʧ��");
-//		return resultMap;
-//	}
+	@RequestMapping(value = "/grapRedPacketByRedis")
+	@ResponseBody
+	public Map<String, Object> grapRedPacketByRedis(Long redPacketId, Long userId) {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		Long result = userRedPacketService.grapRedPacketByRedis(redPacketId, userId);
+		boolean flag = result > 0;
+		resultMap.put("result", flag);
+		resultMap.put("message", flag ? "success": "fail");
+		return resultMap;
+	}
+
+	@Autowired
+	private CJRedisLuaTest cjRedisLuaTest;
+
+	@RequestMapping(value = "/cjRedisLuaTest")
+	@ResponseBody
+	public Map<String, Object> cjRedisLuaTest(Long redPacketId, Long userId) {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		Long result = cjRedisLuaTest.test(redPacketId, userId);
+		boolean flag = result > 0;
+		resultMap.put("result", flag);
+		resultMap.put("message", flag ? "success": "fail");
+		return resultMap;
+	}
+
 }
